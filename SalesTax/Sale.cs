@@ -4,9 +4,10 @@ using System.Text;
 
 namespace SalesTax
 {
-    public class Sale
+    public class Sale 
     {
-        private List<SaleLine> saleLines;
+        //Change 2
+        private List<SaleLine> saleLines  = new List<SaleLine>();
         private decimal totalTax;
         private decimal totalValue;
 
@@ -18,11 +19,13 @@ namespace SalesTax
         public bool Add(string inputLine)
         {
             SaleLine saleLine;
-            saleLines = new List<SaleLine>();
+            
             saleLine = InputParser.ProcessInput(inputLine);
-            saleLines.Add(saleLine);
+            
             totalTax += saleLine.Tax;
             totalValue += saleLine.LineValue;
+            //Change 2,
+            saleLines.Add(saleLine);
             return true;
         }
 

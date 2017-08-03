@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SalesTax
 {
@@ -61,18 +62,21 @@ namespace SalesTax
                 return null;
             }
 
-            productName = string.Join(" ", words, 0, wordCount);
+            //Change 2
+            productName = string.Join(" ", words, 0, wordCount-2);
             if (string.IsNullOrEmpty(productName))
                 return null;
 
             //Check if this is an imported product
-            isImported = productName.Contains("imported ");
+            isImported = productName.Contains ("imported ");
             if (isImported)
             {
                 //Ensure the word imported appears at the front of the description
                 productName = "imported " + productName.Replace("imported ", string.Empty);
+                
             }
-
+            //Change 2
+            productName = Regex.Replace(productName, "[0-9]", "");
             // create the sale line
             saleLine = new SaleLine(quantity, productName, price, isImported);
             return saleLine;
